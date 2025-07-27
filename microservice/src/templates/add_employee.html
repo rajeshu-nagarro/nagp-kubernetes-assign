@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee - Employee Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .nav-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 20px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #e9ecef;
+        }
+
+        .nav-links a.active {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            margin-right: 15px;
+            width: auto;
+            min-width: 120px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .container-info {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .container-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .container-info-item i {
+            opacity: 0.8;
+        }
+
+        .container-info-value {
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .help-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn-secondary {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .container-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .container-info-item {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Add New Employee</h1>
+            <p>Enter employee information to add to the system</p>
+        </div>
+        
+        <div class="container-info">
+            <div class="container-info-item">
+                <i>🖥️</i>
+                <span>Hostname:</span>
+                <span class="container-info-value">{{ hostname }}</span>
+            </div>
+            <div class="container-info-item">
+                <i>📦</i>
+                <span>Container ID:</span>
+                <span class="container-info-value">{{ container_id }}</span>
+            </div>
+            <div class="container-info-item">
+                <i>⚙️</i>
+                <span>Environment:</span>
+                <span class="container-info-value">{{ flask_env }}</span>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="{{ url_for('employee.index') }}">📋 Employee List</a>
+            <a href="{{ url_for('employee.add_employee_form') }}" class="active">➕ Add Employee</a>
+        </div>
+        
+        <div class="content">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'error' if category == 'error' else 'success' }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="form-container">
+                <form method="POST" action="{{ url_for('employee.add_employee') }}" id="employeeForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first_name">First Name <span class="required">*</span></label>
+                            <input type="text" id="first_name" name="first_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Last Name <span class="required">*</span></label>
+                            <input type="text" id="last_name" name="last_name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="help-text">Must be a valid email address and unique in the system</div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="department">Department <span class="required">*</span></label>
+                            <select id="department" name="department" required>
+                                <option value="">Select Department</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="HR">Human Resources</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Operations">Operations</option>
+                                <option value="Legal">Legal</option>
+                                <option value="IT">Information Technology</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="position">Position <span class="required">*</span></label>
+                            <input type="text" id="position" name="position" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hire_date">Hire Date <span class="required">*</span></label>
+                            <input type="date" id="hire_date" name="hire_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="salary">Annual Salary <span class="required">*</span></label>
+                            <input type="number" id="salary" name="salary" min="0" step="0.01" required>
+                            <div class="help-text">Enter amount in USD (e.g., 75000.00)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <a href="{{ url_for('employee.index') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn">Add Employee</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date as default for hire date
+        document.getElementById('hire_date').valueAsDate = new Date();
+        
+        // Form validation
+        document.getElementById('employeeForm').addEventListener('submit', function(e) {
+            const requiredFields = ['first_name', 'last_name', 'email', 'department', 'position', 'hire_date', 'salary'];
+            let isValid = true;
+            
+            requiredFields.forEach(fieldName => {
+                const field = document.getElementById(fieldName);
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#dc3545';
+                } else {
+                    field.style.borderColor = '#e9ecef';
+                }
+            });
+            
+            // Email validation
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email.value && !emailRegex.test(email.value)) {
+                isValid = false;
+                email.style.borderColor = '#dc3545';
+                alert('Please enter a valid email address');
+            }
+            
+            // Salary validation
+            const salary = document.getElementById('salary');
+            if (salary.value && (isNaN(salary.value) || parseFloat(salary.value) < 0)) {
+                isValid = false;
+                salary.style.borderColor = '#dc3545';
+                alert('Please enter a valid salary amount');
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('Please fill in all required fields correctly');
+            }
+        });
+        
+        // Real-time validation feedback
+        document.querySelectorAll('input, select').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.style.borderColor = '#dc3545';
+                } else {
+                    this.style.borderColor = '#e9ecef';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
