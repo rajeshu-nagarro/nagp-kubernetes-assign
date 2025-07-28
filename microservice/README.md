@@ -127,20 +127,18 @@ The application follows below architecture using Factory pattern:
 
 ### Models (`src/models/`)
 - **Employee Model**: Handles all employee-related database operations
-- Uses SQLAlchemy ORM for database interactions
+- Uses SQLAlchemy ORM for database connection and query execution
 - Includes methods for CRUD operations
-- Located in dedicated src/models directory
 
 ### Routes (`src/routes/`)
-- **Employee Blueprint**: Handles all employee-related HTTP requests
-- **Health Blueprint**: Provides health check endpoints
+- **Employee Blueprint**: Handles all employee-related requests
+- **Health Blueprint**: Handles all health check related endpoints
 - Uses Flask blueprints for modular route organization
-- Located in dedicated src/routes directory
 
 ### Database (`src/database.py`)
 - Centralized database configuration and initialization
 - Handles database connection setup with different environments
-- Manages sample data insertion
+- Data seed to populate sample data in the database
 - Support for multiple database configurations
 
 ### Configuration (`src/config.py`)
@@ -159,7 +157,6 @@ The application follows below architecture using Factory pattern:
 ### Employee List Display
 - Shows all employees in a responsive table
 - Displays ID, name, email, department, position, hire date, and salary
-- Hover effects and modern styling
 
 ### Statistics Dashboard
 - Total number of employees
@@ -184,7 +181,7 @@ The application includes sample data for 5 employees across different department
 - **Backend**: Python Flask
 - **ORM**: SQLAlchemy
 - **Database**: MySQL
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
+- **Frontend**: HTML5, CSS3, JavaScript
 - **Database Driver**: PyMySQL
 
 ## File Structure

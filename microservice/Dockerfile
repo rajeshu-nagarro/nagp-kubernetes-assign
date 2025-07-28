@@ -17,8 +17,6 @@ COPY . .
 
 RUN chmod +x start.sh
 
-# Expose port
-EXPOSE 5000
 
 # Set default environment variables
 ENV FLASK_APP=src:create_app
@@ -26,11 +24,13 @@ ENV FLASK_ENV=production
 ENV PYTHONPATH=/app
 ENV GUNICORN_WORKERS=4
 ENV GUNICORN_LOG_LEVEL=info
-ENV PORT=5000
+ENV PORT=80
 
 # Create non-root user for security
 RUN groupadd -r appuser && useradd -r -g appuser appuser
 RUN chown -R appuser:appuser /app
 
+# Expose port
+EXPOSE $PORT
 # Use startup script to determine which server to run
 CMD ["./start.sh"]

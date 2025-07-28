@@ -3,7 +3,18 @@ import os
 class Config:
     """Base configuration class"""
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'your-secret-key-here'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'mysql+pymysql://root:password@localhost/employee_db'
+    
+    DB_HOST = os.environ.get('DB_HOST') or 'localhost'
+    DB_PORT = os.environ.get('DB_PORT') or '3306'
+    DB_USERNAME = os.environ.get('DB_USERNAME') or 'root'
+    DB_PASSWORD = os.environ.get('DB_PASSWORD') or 'password'
+    DB_NAME = os.environ.get('DB_NAME') or 'employee_db'
+    
+    SQLALCHEMY_DATABASE_URI = (
+        os.environ.get('DATABASE_URL') or 
+        f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+    )
+    
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     SQLALCHEMY_ENGINE_OPTIONS = {

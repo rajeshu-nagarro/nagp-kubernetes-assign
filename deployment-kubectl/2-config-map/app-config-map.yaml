@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: employee-web-config
+data:
+ MYSQL_USERNAME: root
+ MYSQL_DATABASE: employee_db

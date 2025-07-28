@@ -20,16 +20,21 @@ services:
     build: .
     container_name: employee_web
     ports:
-      - "5000:5000"
+      - "80:80"
     environment:
-      DATABASE_URL: mysql+pymysql://root:password@mysql/employee_db
+      PORT: 80
       # Uncomment below to override default Flask settings
+      # DATABASE_URL: mysql+pymysql://root:password@mysql/employee_db
       # FLASK_ENV: production
       # FLASK_APP: src:create_app
       # PYTHONPATH: /app
       # GUNICORN_WORKERS: 4
       # GUNICORN_LOG_LEVEL: info
-      PORT: 5000
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      DB_NAME: employee_db
     depends_on:
       mysql:
         condition: service_healthy

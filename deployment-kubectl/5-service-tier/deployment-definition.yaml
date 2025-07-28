@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-web-deployment  
+  labels:
+    app: employee-web-deployment   
+    type: service-tier 
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: 4
+  selector:
+    matchLabels:
+      app: employee-web
+      type: frontend
+  template:
+    metadata:
+      name: employee-web
+      labels:
+        app: employee-web 
+        type: frontend 
+    spec:
+      containers:
+        - name: employee-web #name of the container inside the pod
+          image: rajeshupadhayaya/nagarro:latest # image name of the container
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: PORT
+              value: "80" # Application port
+            - name: DB_HOST
+              value: db-clusterip-service
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: employee-web-config
+                  key: MYSQL_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: employee-web-config
+                  key: MYSQL_DATABASE
+  
