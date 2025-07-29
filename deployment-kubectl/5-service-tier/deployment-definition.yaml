@@ -48,4 +48,17 @@ spec:
                 configMapKeyRef:
                   name: employee-web-config
                   key: MYSQL_DATABASE
-  
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-service
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: employee-web
+  type: NodePort
