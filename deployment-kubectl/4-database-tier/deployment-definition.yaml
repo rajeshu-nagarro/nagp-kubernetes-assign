@@ -1,11 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: database-deployment
   labels:
     app: web   
     type: database-tier 
 spec:
+  serviceName: "db-clusterip-service"
+  replicas: 1
   selector:
     matchLabels:
       app: db
